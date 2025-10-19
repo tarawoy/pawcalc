@@ -1,8 +1,3 @@
-// Sprite layout
-const JOKER_COLS = 16;
-const JOKER_ROWS = 16;
-const TILE_W = 71;
-const TILE_H = 95;
 const menuBtns = [
   document.getElementById('JokersBtn'),
   document.getElementById('CardsBtn'),
@@ -599,24 +594,26 @@ document.getElementById('highContrastBtn').addEventListener('click', toggleContr
 
 function jokerString(i, j, modifiers) {
   let jmodifierClass = '';
+
   let jmodifierString = 'url(assets/Jokers.png) 0px -855px, ';
   let jmodifierPostString = '';
 
-  if (modifiers.foil)
+  if(modifiers.foil) {
     jmodifierPostString = 'url(assets/Editions.png) -71px 0, ';
-  else if (modifiers.holographic)
+  }
+  else if(modifiers.holographic) {
     jmodifierPostString = 'url(assets/Editions.png) -142px 0, ';
-  else if (modifiers.polychrome) {
+  }
+  else if(modifiers.polychrome) {
     jmodifierClass = ' polychrome';
     jmodifierPostString = 'url(assets/Editions.png) -213px 0, ';
-  } else if (modifiers.disabled)
+  }
+  else if(modifiers.disabled) {
     jmodifierPostString = 'url(assets/Editions.png) 71px 0, ';
-
-  //
-  return `${jmodifierClass}" style="mask-position: -${TILE_W * j}px -${TILE_H * i}px; ` +
-         `background: ${jmodifierPostString}${jmodifierString}` +
-         `url(assets/Jokers.png) -${TILE_W * j}px -${TILE_H * i}px;"`;
-}
+  }
+  else {
+    jmodifierPostString = '';
+  }
 
   switch(`${i},${j}`) {
     case '8,3': jmodifierString = `url(assets/Jokers.png) -${71*3}px -${95*9}px, `; break;
@@ -632,8 +629,9 @@ function jokerString(i, j, modifiers) {
 function jredrawCards() {
   let txt = '<div>';
   let count = 0;
-  for (let i = 0; i < JOKER_ROWS; i++) {
-    for (let j = 0; j < JOKER_COLS; j++) {
+  for(let i = 0; i < 16; i++) {
+    if(i === 9) {i++;}
+    for(let j = 0; j < 10; j++) {
       const title = (jokerTexts.length > i && jokerTexts[i].length > j) ? jokerTexts[i][j][0] : 'WIP';
       const description = (jokerTexts.length > i && jokerTexts[i].length > j) ? eval('`' + jokerTexts[i][j][1] + '`') : 'WIP';
       if(title.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0 || description.replace(/\<[^\>]+\>/g,'').toLowerCase().indexOf(searchVal.toLowerCase()) >= 0) {
