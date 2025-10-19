@@ -346,13 +346,12 @@ html {
   position: absolute;
   left: 0;
   display: inline-block;
-  width: 71px;
-  height: 95px;
+  width: 0;
+  height: 100%;
   padding: 0;
   image-rendering: pixelated;
   cursor: pointer;
   z-index: 1;
-  background-size: calc(16 * 71px) calc(16 * 95px);
 }
 
 .modifierCard:hover, .jmodifierCard:hover, .jokerCard:hover, .playingCard:hover, .playfieldCard:hover {
@@ -369,6 +368,7 @@ html {
   top: 0;
   background: inherit;
   position: absolute;
+
   mask-image: url(assets/Jokers.png);
   mask-position: inherit;
   mask-mode: alpha;
@@ -379,11 +379,21 @@ html {
 }
 
 @keyframes bounce {
-  1% { scale: 1; }
-  25% { scale: 1.15; }
-  50% { scale: 1.075; }
-  51% { scale: 1.075; }
-  100% { scale: 1.1; }
+  1%: {
+    scale: 1;
+  }
+  25% {
+    scale: 1.15;
+  }
+  50% {
+    scale: 1.075;
+  }
+  51% {
+    scale: 1.075;
+  }
+  100% {
+    scale: 1.1;
+  }
 }
 
 .playingCard {
@@ -408,4 +418,338 @@ html {
   padding: 0;
   image-rendering: pixelated;
   cursor: pointer;
+}
+
+.chipIcon {
+  margin-bottom: -8px;
+  margin-left: 4px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(assets/chips.png) 0 0;
+  image-rendering: pixelated;
+}
+
+.limitText {
+  color: white;
+  float: left;
+  margin-left: 1em;
+}
+
+.tooltip {
+  display: inline-block;
+  max-width: 71px;
+  height: 94px;
+  padding: 0;
+  position: relative;
+}
+
+.tooltip:has(.playingCard) {
+  width: 7.6%;
+}
+
+.tooltip:has(.jokerCard) {
+  width: 10%;
+}
+
+.tooltip:has(.modifierCard) {
+  width: 100%;
+}
+
+.tooltip:has(.jmodifierCard) {
+  width: 33.33%;
+}
+
+#jokerArea .tooltip:has(.jokerCard),
+.tooltip:has(.playfieldCard) {
+  width: 100%;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: #3f4a4d;
+  color: white;
+  text-align: center;
+  border-radius: 0.75em;
+
+  min-width: 8em;
+
+  position: absolute;
+
+  border: solid;
+  border-color: #dee2ea;
+  border-width: 0.15em;
+  box-shadow: 0em 0.1em 0em #919499;
+
+  height: fit-content;
+  width: fit-content;
+
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.jokerCard + .tooltiptext {
+  bottom: calc(100% + 1em);
+}
+
+#jokerArea > .tooltip > .tooltiptext {
+  top: calc(100% + 1em);
+}
+
+.jokerCard:hover + .removeJoker + .tooltiptext,
+.jokerCard:hover + .tooltiptext,
+.modifierCard:hover + .tooltiptext,
+.jmodifierCard:hover + .tooltiptext {
+  visibility: visible;
+  z-index: 3;
+}
+
+.title {
+  font-size: 2em;
+	display: block;
+  text-align: center;
+  white-space: nowrap;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.desc {
+	display: flex;
+  align-items: center;
+  padding: 0.25em;
+  border-radius: 0.5em;
+  margin: 0.25em;
+  text-align: center;
+  box-shadow: 0 0.1em 0 #ababab;
+  min-height: 2em;
+
+	background-color: white;
+	color: black;
+  white-space: nowrap;
+}
+
+.modifierName {
+	display: flex;
+  align-items: center;
+  padding: 0.25em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 0.5em;
+  margin: 0.25em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  box-shadow: 0 0.1em 0 #474c8f;
+  text-shadow: #474c8f -1px 2px;
+  width: fit-content;
+
+	background-color: #757cdc;
+	color: #fff;
+  white-space: nowrap;
+}
+
+.descContent {
+  width: 100%;
+  text-align: center;
+}
+
+#cardsInHand .tooltip:last-child, #bestPlay .tooltip:last-child, #jokerArea .tooltip:last-child {
+  width: 100000%;
+}
+
+.positionButtons {
+  width: calc(100% - 2px);
+  padding: 0;
+
+  font-size: 22px;
+  text-align: center;
+  height: 1.4em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  container-type: inline-size;
+}
+
+.positionButtons .lvlBtn {
+  margin: 1px;
+  font-size: 16.5px;
+  height: fit-content;
+  padding-bottom: 2px;
+  border-width: 1px;
+}
+
+:not(#cardsInHand) > div:first-child > div > .positionButtons > .lvlBtn:first-child,
+:not(#cardsInHand) > div:last-child > div > .positionButtons > .lvlBtn:last-child {
+  background-color: #374244;
+}
+
+@container(max-width: 45px) {
+  .lvlBtn:first-child + .lvlBtn {
+    order: 3;
+  }
+}
+
+#bestPlayScoreX {
+  border-radius: 0.25em;
+}
+
+#scoreMult,
+#scoreChips {
+  border-radius: 0.125em;
+  padding: 0.125em;
+  text-shadow: 0.07em 0.09em #0005;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.nameLvl {
+  font-size: 0.5em;
+  position: relative;
+  bottom: 0.2em;
+  color: #efefef;
+}
+
+#breakdown {
+  width: 100%;
+  text-align: center;
+}
+
+.breakdownLine {
+  color: black;
+  background-color: #fff;
+  margin: auto;
+  padding: 0.2em;
+  margin-top: 0.5em;
+  border-radius: 0.3em;
+  text-align: center;
+  height: 56px;
+  min-width: 20em;
+  max-width: calc(100% - 3em);
+  white-space: nowrap;
+}
+
+.breakdownLine > div:first-child {
+  display: inline-block;
+  float: left;
+  min-width: 78px;
+}
+
+.breakdownLine > div:first-child > .tooltip .playfieldCard {
+  animation: none;
+}
+
+.breakdownLine > div:first-child > .tooltip .playfieldCard:hover {
+  animation: none;
+  scale: 1;
+  cursor: default;
+}
+.breakdownLine > div:first-child > .tooltip .playfieldCard:after {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.breakdownLine > div > .tooltip {
+  scale: 0.5;
+  height: 47px;
+  position: relative;
+  bottom: 0.5em;
+  width: 36px;
+}
+
+.breakdownLine > span {
+  display: inline-block;
+  white-space: nowrap;
+  margin-top: 0.2em;
+  margin-right: -0.4em;
+  position: relative;
+  top: 16px;
+}
+
+.breakdownLine > .levelStat {
+  position: sticky;
+  float: right;
+  border-radius: 0.25em;
+  top: 0px;
+  margin-top: 14px;
+}
+
+.jokerCard:hover + .removeJoker,
+.removeJoker:hover {
+  visibility: visible;
+  top: -40%;
+  height: 60%;
+  color: #fff;
+}
+
+.removeJoker {
+  color: #fff0;
+  background-color: #f00;
+  position: relative;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 5px;
+  cursor: pointer;
+  visibility: hidden;
+  height: 0%;
+  top: 20%;
+  transition: 0.2s;
+  padding-top: 8px;
+}
+
+#modifyJoker .tooltip {
+  scale: 2;
+  translate: 0 50%;
+}
+
+#modifyJoker .tooltip > .tooltiptext {
+  top: calc(100% + 1em);
+  visibility: visible;
+  scale: 0.75;
+  translate: -12.5% -12%;
+}
+
+#modifyJoker {
+  height: 450px;
+}
+
+.modifierCard + .tooltiptext,
+.jmodifierCard + .tooltiptext {
+  left: -1em;
+  translate: -50%;
+}
+
+.polychrome:after {
+  background-blend-mode: normal, color;
+}
+
+.jokerCard.polychrome:after {
+  background-blend-mode: color, normal;
+}
+
+.EV {
+  font-size: 0.5em;
+  color: #8d8;
+}
+
+.resetBtn {
+  background-color: #ff4d40;
+  color: white;
+  font-family: inherit;
+  font-size: 32px;
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  vertical-align: middle;
+}
+
+.resetBtn:hover {
+  background-color: #df2d20;
 }
