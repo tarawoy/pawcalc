@@ -629,19 +629,27 @@ function jokerString(i, j, modifiers) {
 function jredrawCards() {
   let txt = '<div>';
   let count = 0;
-  for(let i = 0; i < 16; i++) {
-    if(i === 9) {i++;}
-    for(let j = 0; j < 10; j++) {
+  for (let i = 0; i < 16; i++) {
+    if (i === 9) continue; // Skip row 9 (reserved)
+    for (let j = 0; j < 10; j++) {
       const title = (jokerTexts.length > i && jokerTexts[i].length > j) ? jokerTexts[i][j][0] : 'WIP';
       const description = (jokerTexts.length > i && jokerTexts[i].length > j) ? eval('`' + jokerTexts[i][j][1] + '`') : 'WIP';
-      // MODIFICATION HERE: Added "title !== 'WIP' &&"
-      if(title !== 'WIP' && (title.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0 || description.replace(/\<[^\>]+\>/g,'').toLowerCase().indexOf(searchVal.toLowerCase()) >= 0)) {
-        txt += `<div class='tooltip'><div class="jokerCard${jokerString(i, j, jmodifiers)} onclick="addJoker(${i}, ${j})" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div><span class='tooltiptext'>` +
-        `<div class='title'>${title}</div><br style="display: none">` +
-        `<div class='desc'><span class='descContent'>${description}</span></span>` +
-        `</div></div>`;
+
+      if (title === "WIP" || description === "WIP") continue;
+
+      if (
+        title.toLowerCase().includes(searchVal.toLowerCase()) ||
+        description.replace(/\<[^\>]+\>/g, '').toLowerCase().includes(searchVal.toLowerCase())
+      ) {
+        txt += `<div class='tooltip'>
+                  <div class="jokerCard${jokerString(i, j, jmodifiers)}" onclick="addJoker(${i}, ${j})" onmousemove='hoverCard(event)' onmouseout='noHoverCard(event)'></div>
+                  <span class='tooltiptext'>
+                    <div class='title'>${title}</div><br style="display: none">
+                    <div class='desc'><span class='descContent'>${description}</span></div>
+                  </span>
+                </div>`;
         count++;
-        if(count >= 10) {
+        if (count >= 10) {
           count = 0;
           txt += '</div><div>';
         }
