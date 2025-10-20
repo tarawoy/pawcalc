@@ -1,3 +1,19 @@
+
+let jokerCustomMultiFlags = {};
+
+function renderCustomMultiToggle(jokerIndex) {
+  const toggleContainer = document.getElementById("jokerCustomMultiToggle");
+  if (!toggleContainer) return;
+
+  const checked = jokerCustomMultiFlags[jokerIndex] ? "checked" : "";
+  toggleContainer.innerHTML = \`
+    <label style="font-size:14px;">
+      <input type="checkbox" id="customMultiToggleCheckbox" onchange="jokerCustomMultiFlags[\${jokerIndex}] = this.checked;" \${checked}>
+      Enable Custom Multiplier
+    </label>
+  \`;
+}
+
 const menuBtns = [
   document.getElementById('JokersBtn'),
   document.getElementById('CardsBtn'),
@@ -1276,10 +1292,3 @@ function setupWheelHandlers() {
 }
 
 setupWheelHandlers();
-
-
-function toggleCustomMultiplier(checkbox) {
-  const enabled = checkbox.checked;
-  console.log('Custom multiplier ' + (enabled ? 'enabled' : 'disabled'));
-  // Optional: Set global flag or update joker state here
-}
