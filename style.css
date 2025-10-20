@@ -753,3 +753,17 @@ input {
 .resetBtn:hover {
   background-color: #df2d20;
 }
+
+
+/* Custom Multi controls under each selected Joker */
+.customMulti { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  gap: 4px; 
+  align-items: center; 
+  font-size: 0.8em; 
+  margin-top: 4px;
+}
+.customMulti label { grid-column: 1 / span 3; user-select: none; }
+.customRow { display: flex; gap: 4px; align-items: center; }
+.customRow input { width: 4em; }
