@@ -215,7 +215,10 @@ function terminateThreads() {
         playfieldCards[a].modifiers.double ? 2 : 0,
         0, // extra chips
         playfieldCards[a].modifiers.disabled,
-        index
+        index,
+        playfieldJokers[a].customEnabled ? 1 : 0,
+        playfieldJokers[a].customPlus || 0,
+        playfieldJokers[a].customTimes || 1
       ];
     }),
     hands: hands.map(a => {
@@ -244,7 +247,10 @@ function terminateThreads() {
         getEdition(playfieldJokers[a].modifiers),
         playfieldJokers[a].modifiers.disabled,
         playfieldJokers[a].sell,
-        index
+        index,
+        playfieldJokers[a].customEnabled ? 1 : 0,
+        playfieldJokers[a].customPlus || 0,
+        playfieldJokers[a].customTimes || 1
       ];
     })
   };
