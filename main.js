@@ -694,9 +694,6 @@ function addJoker(i, j, sell = false) {
       modifiers: {...jmodifiers},
       value: jokerValue,
       sell: sell !== false ? sell : Math.floor((jokerPrice[i][j] + ((jmodifiers.foil || jmodifiers.holographic || jmodifiers.polychrome) ? 1 : 0)) / 2),
-      customEnabled: false,
-      customPlus: 0,
-      customTimes: 1,
       string: jokerString(i, j, jmodifiers),
       tooltip: (jokerTexts.length > i && jokerTexts[i].length > j) ? [jokerTexts[i][j][0], eval('`' + jokerTexts[i][j][1] + '`')] : ['WIP', 'WIP']
     };
@@ -722,29 +719,6 @@ function removeJoker(id) {
 
   changeTab(revertToTab)();
 }
-
-function toggleCustomMulti(id, enabled) {
-  if(!playfieldJokers[id]) return;
-  playfieldJokers[id].customEnabled = !!enabled;
-  redrawPlayfield();
-}
-
-function setCustomPlus(id, val) {
-  if(!playfieldJokers[id]) return;
-  let v = parseFloat(val);
-  if(isNaN(v)) v = 0;
-  playfieldJokers[id].customPlus = v;
-  redrawPlayfield();
-}
-
-function setCustomTimes(id, val) {
-  if(!playfieldJokers[id]) return;
-  let v = parseFloat(val);
-  if(isNaN(v) || v <= 0) v = 1;
-  playfieldJokers[id].customTimes = v;
-  redrawPlayfield();
-}
-
 
 function addCard(i, j) {
   for(let k = 0; k < cardCount; k++) {
@@ -819,7 +793,7 @@ function redrawPlayfieldHTML() {
     `<div class="lvlBtn" onclick="moveHandCardLeft('${id}')">&lt;</div>` +
     `<div class="lvlBtn" onclick="moveHandCardDown('${id}')">v</div>` +
     `<div class="lvlBtn" onclick="moveHandCardRight('${id}')">&gt;</div>` +
-    `</div></div>` + `<div class='customMulti'>` +`<label><input type='checkbox' onchange="toggleCustomMulti('${id}', this.checked)" ${playfieldJokers[id].customEnabled ? 'checked' : ''}> Custom</label>` +`<div class='customRow'>+<input type='number' min='0' step='1' value='${playfieldJokers[id].customPlus}' onchange="setCustomPlus('${id}', this.value)"></div>` +`<div class='customRow'>x<input type='number' min='0' step='0.1' value='${playfieldJokers[id].customTimes}' onchange="setCustomTimes('${id}', this.value)"></div>` +`</div>` +
+    `</div></div>` +
     `</div>`;
   }
   bestPlayDiv.innerHTML = txt;
@@ -1302,3 +1276,41 @@ function setupWheelHandlers() {
 }
 
 setupWheelHandlers();
+
+
+
+function redrawPlayfieldHTML() {
+  const playfield = document.getElementById("Jokers");
+  playfield.innerHTML = "";
+  for (let i = 0; i < playfieldJokers.length; i++) {
+    const joker = playfieldJokers[i];
+    const div = document.createElement("div");
+    div.className = "joker-container";
+    div.innerHTML = `
+      <img src="assets/Jokers.png" style="object-position: -${joker.x}px -${joker.y}px;">
+      <p>${joker.name}</p>
+    `;
+
+    if (joker.selected) {
+      const customDiv = document.createElement("div");
+      customDiv.className = "customMulti";
+      customDiv.innerHTML = `
+        <label><input type="checkbox" onchange="toggleCustomMulti(${i}, this.checked)" ${joker.customEnabled ? 'checked' : ''}/> Custom</label>
+        <div class="customRow">+<input type="number" value="${joker.customPlus}" onchange="setCustomPlus(${i}, this.value)"/></div>
+        <div class="customRow">x<input type="number" value="${joker.customTimes}" onchange="setCustomTimes(${i}, this.value)"/></div>
+      `;
+      div.appendChild(customDiv);
+    }
+    playfield.appendChild(div);
+  }
+}
+
+function toggleCustomMulti(id, val) {
+  playfieldJokers[id].customEnabled = val;
+}
+function setCustomPlus(id, val) {
+  playfieldJokers[id].customPlus = parseInt(val);
+}
+function setCustomTimes(id, val) {
+  playfieldJokers[id].customTimes = parseFloat(val);
+}
