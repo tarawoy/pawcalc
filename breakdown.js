@@ -747,7 +747,23 @@ class Hand {
       this.mult = bigTimes(1.5, this.mult);
       if(this.bd) this.breakdownTimesMult([joker], 1.5, true);
     }
-  }
+  
+
+    // --- Custom per-joker multipliers (from state extension) ---
+    if (Array.isArray(joker) && joker.length >= 7 && joker[6]) {
+      const _plus = (joker.length >= 8) ? joker[7] : 0;
+      const _times = (joker.length >= 9) ? joker[8] : 1;
+      if (_plus) {
+        this.mult = bigAdd(_plus, this.mult);
+        if (this.bd) this.breakdownPlusMult([joker], _plus, true);
+      }
+      if (_times && _times !== 1) {
+        this.mult = bigTimes(_times, this.mult);
+        if (this.bd) this.breakdownTimesMult([joker], _times, true);
+      }
+    }
+    // --- End custom ---
+}
 
   triggerCard(card, retrigger = false) {
     if(card[CARD_DISABLED]) return;
