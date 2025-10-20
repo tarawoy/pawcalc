@@ -623,7 +623,15 @@ function jokerString(i, j, modifiers) {
     case '8,7': jmodifierString = `url(assets/Jokers.png) -${71*7}px -${95*9}px, `; break;
     case '12,4': jmodifierString = `url(assets/Jokers.png) -${71*2}px -${95*9}px, `; break;
   }
-  return `${jmodifierClass}" style="mask-position:  -${71*j}px -${95*i}px; background: ${jmodifierPostString}${jmodifierString}url(assets/Jokers.png) -${71*j}px -${95*i}px"`;
+
+  // Ensure sprite is scaled properly: adjust these values if your sprite layout differs
+  const CELL_W = 71;
+  const CELL_H = 95;
+  const COLS = 10; // number of columns in Jokers sprite
+  const ROWS = 16; // number of rows in Jokers sprite
+  const bgSize = `${CELL_W * COLS}px ${CELL_H * ROWS}px`;
+
+  return `${jmodifierClass}" style="mask-position:  -${CELL_W*j}px -${CELL_H*i}px; -webkit-mask-size: ${bgSize}; mask-size: ${bgSize}; background-size: ${bgSize}; background: ${jmodifierPostString}${jmodifierString}url(assets/Jokers.png) -${CELL_W*j}px -${CELL_H*i}px"`;
 }
 
 function jredrawCards() {
@@ -635,7 +643,7 @@ function jredrawCards() {
       const title = (jokerTexts.length > i && jokerTexts[i].length > j) ? jokerTexts[i][j][0] : 'WIP';
       const description = (jokerTexts.length > i && jokerTexts[i].length > j) ? eval('`' + jokerTexts[i][j][1] + '`') : 'WIP';
       if(title.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0 || description.replace(/\<[^\>]+\>/g,'').toLowerCase().indexOf(searchVal.toLowerCase()) >= 0) {
-        txt += `<div class='tooltip'><div class="jokerCard${jokerString(i, j, jmodifiers)} onclick="addJoker(${i}, ${j})" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div><span class='tooltiptext'>` +
+        txt += `<div class='tooltip'><div class="jokerCard${jokerString(i, j, jmodifiers)} onclick="addJoker(${i}, ${j})" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div><span[...]
         `<div class='title'>${title}</div><br style="display: none">` +
         `<div class='desc'><span class='descContent'>${description}</span></span>` +
         `</div></div>`;
@@ -796,7 +804,7 @@ function redrawPlayfieldHTML() {
   for(let id of Object.keys(playfieldCards).sort().reverse()) {
     if(bestHand.indexOf(id) >= 0) continue;
     if(id.indexOf('99') !== 0) continue;
-    txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div>` +
+    txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCard(ev[...]
     `<div style="position: absolute; top: 100%; width: 100%;">` +
     `<div class="positionButtons">` +
     `<div class="lvlBtn" onclick="moveCardUp('${id}')">^</div>` +
@@ -852,7 +860,7 @@ function redrawPlayfieldHTML() {
         if(lowestCards.indexOf(id) < 0) continue;
         if(id === ignoreCard) continue;
         if(id.indexOf('99') === 0) continue;
-        txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div>` +
+        txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCar[...]
         `<div style="position: absolute; top: 100%; width: 100%;">` +
         `<div class="positionButtons">` +
         `<div class="lvlBtn" onclick="moveCardUp('${id}')">^</div>` +
@@ -860,7 +868,7 @@ function redrawPlayfieldHTML() {
         `</div>`;
       }
 
-      txt += `<div class="tooltip"><div id="${ignoreCard}" class="playfieldCard${highContrast ? playfieldCards[ignoreCard].HCString : playfieldCards[ignoreCard].string} onclick="removeCard('${ignoreCard}')" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div>` +
+      txt += `<div class="tooltip"><div id="${ignoreCard}" class="playfieldCard${highContrast ? playfieldCards[ignoreCard].HCString : playfieldCards[ignoreCard].string} onclick="removeCard('${ignoreCa[...]
       `<div style="position: absolute; top: 100%; width: 100%;">` +
       `<div class="positionButtons">` +
       `<div class="lvlBtn" onclick="moveCardUp('${ignoreCard}')">^</div>` +
@@ -874,7 +882,7 @@ function redrawPlayfieldHTML() {
     if(bestHand.indexOf(id) >= 0) continue;
     if(lowestCards.indexOf(id) >= 0) continue;
     if(id.indexOf('99') === 0) continue;
-    txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div>` +
+    txt += `<div class="tooltip"><div id="${id}" class="playfieldCard${highContrast ? playfieldCards[id].HCString : playfieldCards[id].string} onclick="removeCard('${id}')" onmousemove = 'hoverCard(ev[...]
     `<div style="position: absolute; top: 100%; width: 100%;">` +
     `<div class="positionButtons">` +
     `<div class="lvlBtn" onclick="moveCardUp('${id}')">^</div>` +
@@ -983,7 +991,7 @@ function modifyJoker(id) {
 function updateModifyingJoker() {
   if(!playfieldJokers.hasOwnProperty(modifyingJoker)) return;
 
-  modifyJokerDiv.innerHTML = `<div><div class='tooltip'><div data-scale='2' class="jokerCard${playfieldJokers[modifyingJoker].string} onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'></div>` +
+  modifyJokerDiv.innerHTML = `<div><div class='tooltip'><div data-scale='2' class="jokerCard${playfieldJokers[modifyingJoker].string} onmousemove = 'hoverCard(event)' onmouseout = 'noHoverCard(event)'[...]
   `<span class='tooltiptext'>` +
   `<span class='title'>${playfieldJokers[modifyingJoker].tooltip[0]}</span>` +
   `<span class='desc'><span class='descContent'>${playfieldJokers[modifyingJoker].tooltip[1]}</span></span>` +
