@@ -1276,3 +1276,10 @@ function setupWheelHandlers() {
 }
 
 setupWheelHandlers();
+
+
+function toggleCustomMultiplier(checkbox) {
+  const enabled = checkbox.checked;
+  console.log('Custom multiplier ' + (enabled ? 'enabled' : 'disabled'));
+  // Optional: Set global flag or update joker state here
+}
