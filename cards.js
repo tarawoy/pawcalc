@@ -405,38 +405,6 @@ const jokerTexts = [
   ],
   [
     ['Midas Mask', 'All played ${numc}face${endc} cards<br>become ${numc}Gold${endc} cards<br>when scored'],
-    ['Luchador', 'Sell this card to<br>disable the current<br>${numc}Boss Blind${endc}'],
-    ['Photograph', 'First played ${numc}face${endc}<br>card gives ${prodc}2${endc} Mult<br>when scored'],
-    ['Gift Card', 'Add ${moneyc}$1${endc} of ${numc}sell value${endc}<br>to every ${numc}Joker${endc} and<br>${numc}Consumable${endc} card at<br>end of round'],
-    ['Turtle Bean', '${numc}${5 - jokerValue >= 0 ? "+" : ""}${5 - jokerValue}${endc} hand size,<br>reduces by<br>${multc}1${endc} every round'],
-    ['Erosion', '${multc}+4${endc} Mult for each<br>card below ${numc}52${endc}<br>in your full deck<br>${shadowc}(Currently ${multc}${jokerValue >= 0 ? "+" : ""}${jokerValue * 4}${endc})${endc}', 'Cards Below 52'],
-    ['Reserved Parking', 'Each ${numc}face${endc} card<br>held in hand has<br>a ${probc}1 in 2${endc} chance<br>to give ${moneyc}$1${endc}'],
-    ['Mail-In Rebate', 'Earn ${moneyc}$5${endc} for each<br>discarded ${numc}${rankNames[Math.abs(jokerValue % 13)]}${endc}, rank<br>changes every round'],
-    ['To the Moon', 'Earn an extra ${moneyc}$1${endc} of<br>${numc}interest${endc} for every ${moneyc}$5${endc} you<br>have at end of round'],
-    ['Hallucination', '${probc}1 in 2${endc} chance to create<br>a ${tarotc} card when any<br>${numc}Booster Pack${endc} is opened${roomc}']
-  ],
-  [
-    ['Sly Joker',  '${chipc}+50${endc} Chips if played<br>hand contains<br>a ${numc}Pair${endc}'],
-    ['Wily Joker',  '${chipc}+100${endc} Chips if played<br>hand contains<br>a ${numc}Three of a Kind${endc}'],
-    ['Clever Joker',  '${chipc}+80${endc} Chips if played<br>hand contains<br>a ${numc}Two Pair${endc}'],
-    ['Devious Joker',  '${chipc}+100${endc} Chips if played<br>hand contains<br>a ${numc}Straight${endc}'],
-    ['Crafty Joker',  '${chipc}+80${endc} Chips if played<br>hand contains<br>a ${numc}Flush${endc}'],
-    ['Lucky Cat', 'This Joker gains ${prodc}0.25${endc} Mult every<br>time a ${numc}Lucky${endc} card<br>${probc}successfully${endc} triggers<br>${shadowc}(Currently ${prodc}${(10 + jokerValue * 2.5) / 10}${endc} Mult)${endc}', 'Lucky Triggers'],
-    ['Baseball Card', '${probc}Uncommon${endc} Jokers<br>each give ${prodc}1.5${endc} Mult'],
-    ['Bull', '${chipc}+2${endc} Chips for each<br>${moneyc}dollar${endc} you have<br>${shadowc}(Currently ${chipc}+${jokerValue * 2}${endc} Chips)${endc}', 'Money'],
-    ['Diet Cola', 'Sell this card to<br>create a free<br>${numc}Double Tag${endc}'],
-    ['Trading Card', 'If ${numc}first discard${endc} of round<br>has only ${numc}1${endc} card, destroy<br>it and earn ${moneyc}$3${endc}']
-  ],
-  [
-    ['Flash Card', 'This Joker gains ${multc}+2${endc} Mult<br>per ${numc}reroll${endc} in the shop<br>${shadowc}(Currently ${multc}+${jokerValue * 2}${endc} Mult)${endc}', 'Rerolls'],
-    ['Popcorn', '${multc}${jokerValue <= 5 ? "+" : ""}${Math.max(0, 20 - jokerValue * 4)}${endc} Mult<br>${multc}-4${endc} Mult per<br>round played', 'Rounds Played'],
-    ['Ramen', '${prodc}${(Math.max(0, 200 - jokerValue)) / 100}${endc} Mult,<br>loses ${prodc}0.01${endc} Mult<br>per ${numc}card${endc} discarded', 'Cards Discarded'],
-    ['Seltzer', 'Retrigger all<br>cards played for<br>the next ${numc}${Math.max(0, 10 - jokerValue)}${endc} hands', 'Hands Played'],
-    ['Spare Trousers', 'This Joker gains ${multc}+2${endc} Mult<br>if played hand contains<br>a ${numc}Two Pair${endc}<br>${shadowc}(Currently ${multc}+${jokerValue * 2}${endc} Mult)${endc}', 'Two Pairs Played'],
-    ['Campfire', 'This Joker gains ${prodc}0.25${endc} Mult<br>for each card ${numc}sold${endc}, resets<br>when ${numc}Boss Blind${endc} is defeated<br>${shadowc}(Currently ${prodc}${1 + jokerValue * 0.25}${endc} Mult)${endc}', 'Cards Sold'],
-    ['Smiley Face', 'Played ${numc}face${endc} cards<br>give ${multc}+5${endc} Mult<br>when scored'],
-    ['Ancient Joker', 'Each played card with<br>${[heartc, clubc, diamondc, spadec][Math.abs(jokerValue) % 4]} suit gives<br>${prodc}1.5${endc} Mult when scored<br>${shadowc}suit changes at end of round${endc}', 'Suit ID'],
-    ['Walkie Talkie', 'Each played ${numc}10${endc} or ${numc}4${endc}<br>gives ${chipc}+10${endc} Chips and<br>${multc}+4${endc} Mult when scored'],
-    ['Castle', 'This Joker gains ${chipc}+3${endc} Chips<br>per discarded ${[heartc, clubc, diamondc, spadec][Math.abs(jokerValue) % 4]} card,<br>suit changes every round<br>${shadowc}(Currently ${chipc}+${jokerValue * 3}${endc} Chips)${endc}', 'Matching Discarded Cards']
+    ['Luchador', 'Sell this card to<br>disable the current<br>${numc}Boss Blind${endc}']
   ]
 ];
